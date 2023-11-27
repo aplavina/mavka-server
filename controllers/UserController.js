@@ -27,12 +27,6 @@ class UserController {
   }
 
   async updateUser(req, res) {
-    const reqFrom = await User.readUserById(req.user_id.id);
-    if (req.params.username != reqFrom.rows[0].username) {
-      res.status(400).json('Access denied');
-      return;
-    }
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res
@@ -78,14 +72,7 @@ class UserController {
   }
 
   async deleteuser(req, res) {
-    const reqFrom = await User.readUserById(req.user_id.id);
-    if (req.params.username != reqFrom.rows[0].username) {
-      res.status(400).json('Access denied');
-      return;
-    }
-
     const username = req.params.username;
-
     try {
       const queryRes = await User.deleteUser(username);
       if (queryRes.rowCount != 1) {

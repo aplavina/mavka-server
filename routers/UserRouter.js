@@ -2,6 +2,7 @@ const Router = require('express');
 const UserController = require('../controllers/UserController.js');
 const { check } = require('express-validator');
 const authMiddleware = require('./../middleware/AuthMiddleware.js');
+const privateDataAccess = require('./../middleware/PrivateDataAccess.js');
 
 const userRouter = new Router();
 
@@ -18,12 +19,13 @@ userRouter.put(
     check('first_name', 'First name can not be empty').notEmpty(),
     check('last_name', 'Last name can not be empty').notEmpty(),
     authMiddleware,
+    privateDataAccess,
   ],
   UserController.updateUser
 );
 userRouter.delete(
   '/users/:username',
-  authMiddleware,
+  [authMiddleware, privateDataAccess],
   UserController.deleteuser
 );
 
