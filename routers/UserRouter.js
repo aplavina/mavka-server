@@ -7,6 +7,11 @@ const privateDataAccess = require('./../middleware/PrivateDataAccess.js');
 const userRouter = new Router();
 
 userRouter.get('/users/:username', authMiddleware, UserController.getUser);
+userRouter.get(
+  '/users/private/:username',
+  [authMiddleware, privateDataAccess],
+  UserController.getUserPrivateInfo
+);
 userRouter.put(
   '/users/:username',
   [

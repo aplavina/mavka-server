@@ -12,8 +12,30 @@ class UserController {
             .json(`User with username ${req.params.username} doesen\'t exist`);
         } else {
           res.status(200).json({
-            email: query_res.rows[0].email,
             username: query_res.rows[0].username,
+            first_name: query_res.rows[0].first_name,
+            last_name: query_res.rows[0].last_name,
+            wall_id: query_res.rows[0].wall_id,
+            avatar_url: query_res.rows[0].avatar_url,
+          });
+        }
+      });
+    } catch (exc) {
+      res.status(500).json(exc);
+    }
+  }
+
+  async getUserPrivateInfo(req, res) {
+    try {
+      User.readUser(req.params.username).then((query_res) => {
+        if (query_res.rows.length == 0) {
+          res
+            .status(400)
+            .json(`User with username ${req.params.username} doesen\'t exist`);
+        } else {
+          res.status(200).json({
+            username: query_res.rows[0].username,
+            email: query_res.rows[0].email,
             first_name: query_res.rows[0].first_name,
             last_name: query_res.rows[0].last_name,
             wall_id: query_res.rows[0].wall_id,
