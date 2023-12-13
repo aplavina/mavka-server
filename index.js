@@ -26,10 +26,18 @@ app.use(function (req, res, next) {
 
 io.on('connection', (socket) => {
   console.log('user connected', socket.id);
-  socket.on('listen chat room', (token, roomId) => {
+  socket.on('listen personal messages', (token) => {
     try {
       const id = AuthHelper.simpleAuthorize(token);
       socket.join(`personal ${id}`);
+    } catch (exc) {
+      console.log(exc);
+      socket.emit('error', 'authorization failed');
+    }
+  });
+  socket.on('listen chat room', (token, roomId) => {
+    try {
+      AuthHelper.simpleAuthorize(token);
       socket.join(`chat room ${roomId}`);
       console.log(`${socket.id} listening to room ${roomId}`);
     } catch (exc) {
