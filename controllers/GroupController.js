@@ -23,7 +23,7 @@ class GroupController {
   }
 
   async joinGroup(req, res) {
-    const goup_id = req.params.group_id;
+    const group_id = req.params.group_id;
     const user_id = req.user_id;
     try {
       const queryRes = await Group.joinGroup(group_id, user_id);
