@@ -21,6 +21,7 @@ class UserController {
         }
       });
     } catch (exc) {
+      console.log(exc);
       res.status(500).json(exc);
     }
   }

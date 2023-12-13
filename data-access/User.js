@@ -5,14 +5,14 @@ class User {
     const query = `SELECT user_id, username, email, pass, first_name, last_name, users.wall_id, avatar_url
               FROM users
               WHERE username = \'${username}\'`;
-    return pool.query(query);
+    return await pool.query(query);
   }
 
   async readUserById(id) {
     const query = `SELECT user_id, username, email, pass, first_name, last_name, users.wall_id, avatar_url
               FROM users
               WHERE user_id = \'${id}\'`;
-    return pool.query(query);
+    return await pool.query(query);
   }
 
   async addUser(email, username, pass, first_name, last_name) {
@@ -34,14 +34,14 @@ class User {
                                SET wall_user_id = ${user_id} WHERE wall_id = ${wall_id}`;
       const updateWallRes = await client.query(updateWallQuery);
       await client.query('COMMIT');
-      res = updateWallRes;
+      res = createUserRes;
     } catch (exc) {
       await client.query('ROLLBACK');
       throw exc;
     } finally {
       client.release();
     }
-    return res;
+    return res.rows[0];
   }
 
   async updateUser(

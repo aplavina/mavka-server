@@ -1,5 +1,4 @@
-const jwt = require('jsonwebtoken');
-const { secret } = require('../config');
+const AuthHelper = require('./../helpers/AuthHelper');
 
 module.exports = function (req, res, next) {
   try {
@@ -7,8 +6,7 @@ module.exports = function (req, res, next) {
     if (!token) {
       return res.status(403).json({ message: 'Not authorized' });
     }
-    const decodedData = jwt.verify(token, secret);
-    req.user_id = decodedData;
+    req.user_id = AuthHelper.simpleAuthorize(token).id;
     next();
   } catch (e) {
     console.log(e);
