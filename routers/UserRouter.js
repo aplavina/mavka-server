@@ -6,14 +6,14 @@ const privateDataAccess = require('./../middleware/PrivateDataAccess.js');
 
 const userRouter = new Router();
 
-userRouter.get('/users/:username', authMiddleware, UserController.getUser);
+userRouter.get('/:username', authMiddleware, UserController.getUser);
 userRouter.get(
-  '/users/private/:username',
+  '/private/:username',
   [authMiddleware, privateDataAccess],
   UserController.getUserPrivateInfo
 );
 userRouter.put(
-  '/users/:username',
+  '/:username',
   [
     check('email', 'Email can not be empty').notEmpty(),
     check('pass', 'Password can not be empty').notEmpty(),
@@ -29,7 +29,7 @@ userRouter.put(
   UserController.updateUser
 );
 userRouter.delete(
-  '/users/:username',
+  '/:username',
   [authMiddleware, privateDataAccess],
   UserController.deleteuser
 );

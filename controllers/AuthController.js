@@ -46,8 +46,13 @@ class AuthController {
       const token = await AuthService.login(user);
       return res.json({ token });
     } catch (exc) {
+      if (exc.message == 'db error') {
+        return res.status(500).json({
+          message: 'Server error',
+        });
+      }
       console.log(exc);
-      res.status(400).json({ message: exc.message });
+      res.status(401).json({ message: exc.message });
     }
   }
 }

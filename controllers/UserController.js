@@ -70,15 +70,15 @@ class UserController {
   async deleteuser(req, res) {
     const username = req.params.username;
     try {
-      const queryRes = await User.deleteUser(username);
-      if (queryRes.rowCount != 1) {
-        res.status(400).json('User not found');
-        return;
-      }
-      res.status(200).json('User deleted');
+      await UserService.deleteUser(username);
+      res.status(200).json({ message: 'User deleted' });
     } catch (exc) {
-      console.log(exc);
-      res.status(500).json(exc);
+      if (exc.message == 'User not foudn') {
+        res.status(400).json({ message: 'User not found' });
+        return;
+      } else {
+        res.status(500).json({ message: exc.message });
+      }
     }
   }
 }

@@ -52,6 +52,22 @@ class UserService {
       }
     }
   }
+
+  async deleteUser(username) {
+    try {
+      const queryRes = await User.deleteUser(username);
+      if (queryRes.rowCount != 1) {
+        throw new Error('User not found');
+      }
+    } catch (exc) {
+      if (exc.message != 'User not found') {
+        console.log(exc);
+        throw new Error('server error');
+      } else {
+        throw exc;
+      }
+    }
+  }
 }
 
 module.exports = new UserService();

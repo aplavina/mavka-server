@@ -48,8 +48,8 @@ io.on('connection', (socket) => {
   });
 });
 
-app.use('/mavka-api', userRouter);
-app.use('/mavka-api', authRouter);
+app.use('/users', userRouter);
+app.use('/auth', authRouter);
 app.use('/mavka-api', chatRouter);
 app.use('/mavka-api', groupRouter);
 app.use('/mavka-api', postRouter);

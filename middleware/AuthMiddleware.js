@@ -10,7 +10,7 @@ module.exports = async function (req, res, next) {
     req.user_id = AuthHelper.simpleAuthorize(token).id;
     const queryRes = await User.readUserById(req.user_id);
     if (queryRes.rows.length == 0) {
-      return res.status(400).json({ message: 'user not found' });
+      return res.status(400).json({ message: 'not authorized' });
     }
     next();
   } catch (e) {
