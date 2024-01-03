@@ -47,16 +47,23 @@ class User {
   async updateUser(
     username,
     new_email,
-    new_username,
     new_pass,
     new_first_name,
     new_last_name,
     new_avatar
   ) {
-    const updateUserQuery = `UPDATE users
-                             SET email = \'${new_email}\', username = \'${new_username}\', pass = \'${new_pass}\',
+    let updateUserQuery;
+    if (new_avatar == null) {
+      updateUserQuery = `UPDATE users
+                             SET email = \'${new_email}\', pass = \'${new_pass}\',
+                                 first_name = \'${new_first_name}\', last_name = \'${new_last_name}\', avatar_url = NULL
+                             WHERE username = \'${username}\'`;
+    } else {
+      updateUserQuery = `UPDATE users
+                             SET email = \'${new_email}\', pass = \'${new_pass}\',
                                  first_name = \'${new_first_name}\', last_name = \'${new_last_name}\', avatar_url = \'${new_avatar}\'
                              WHERE username = \'${username}\'`;
+    }
     return pool.query(updateUserQuery);
   }
 

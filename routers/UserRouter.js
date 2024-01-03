@@ -15,8 +15,8 @@ userRouter.get(
 userRouter.put(
   '/users/:username',
   [
-    check('username', 'Username can not be empty').notEmpty(),
     check('email', 'Email can not be empty').notEmpty(),
+    check('pass', 'Password can not be empty').notEmpty(),
     check(
       'pass',
       'Password length is incorrect - must be 4 to 64 symbols'
@@ -33,5 +33,14 @@ userRouter.delete(
   [authMiddleware, privateDataAccess],
   UserController.deleteuser
 );
+
+/* 
+  NEED OTHER METHODS:
+  getFriends
+  getGroupMembers
+  getChatMembers
+  getGroupModerators
+  getChatModerators
+*/
 
 module.exports = userRouter;

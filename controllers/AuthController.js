@@ -6,7 +6,9 @@ class AuthController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ message: 'Registration error', errors });
+        return res
+          .status(400)
+          .json({ message: 'Registration error', errors: errors.errors });
       }
       await AuthService.registration({
         email: req.body.email,
@@ -15,16 +17,17 @@ class AuthController {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
       });
-      res.status(200).json('User registered');
+      res.status(200).json({ message: 'User registered' });
     } catch (exc) {
-      if (exc.constraint == 'users_email_key') {
-        res.status(400).json('this email is already used');
-      } else if (exc.constraint == 'users_username_key') {
-        res.status(400).json('this username is already used');
-      } else {
-        console.log(exc);
-        res.status(500).json(exc);
+      if (exc.message == 'db error') {
+        res.status(500).json({
+          message: 'Server error',
+        });
       }
+      res.status(400).json({
+        message: 'Registration error',
+        errors: [exc.message],
+      });
     }
   }
 
@@ -32,7 +35,9 @@ class AuthController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ message: 'Registration error', errors });
+        return res
+          .status(400)
+          .json({ message: 'Login error', errors: errors.errors });
       }
       const user = {
         username: req.body.username,
@@ -42,7 +47,7 @@ class AuthController {
       return res.json({ token });
     } catch (exc) {
       console.log(exc);
-      res.status(400).json(exc);
+      res.status(400).json({ message: exc.message });
     }
   }
 }

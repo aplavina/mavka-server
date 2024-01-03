@@ -26,7 +26,7 @@ class GroupController {
     const group_id = req.params.group_id;
     const user_id = req.user_id;
     try {
-      const queryRes = await Group.joinGroup(group_id, user_id);
+      const queryRes = await Group.joinGroup(group_id, user_id, false);
       res.status(200).json({ message: 'Success' });
     } catch (exc) {
       console.log(exc);

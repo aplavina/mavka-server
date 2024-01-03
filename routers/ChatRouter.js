@@ -3,7 +3,6 @@ const { check } = require('express-validator');
 const authMiddleware = require('./../middleware/AuthMiddleware.js');
 const checkMembershipMiddleware = require('./../middleware/CheckChatMembership.js');
 const chatController = require('./../controllers/ChatController.js');
-const ChatController = require('./../controllers/ChatController.js');
 
 const chatRouter = new Router();
 
@@ -28,7 +27,7 @@ chatRouter.post(
 chatRouter.post(
   '/pmsg/:username',
   [check('text', 'Mesage text can not be empty').notEmpty(), authMiddleware],
-  ChatController.addPersonal
+  chatController.addPersonal
 );
 
 module.exports = chatRouter;

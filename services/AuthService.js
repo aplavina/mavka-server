@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator');
 const User = require('./../data-access/User.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -23,7 +22,13 @@ class AuthService {
         user.last_name
       );
     } catch (exc) {
-      throw exc;
+      if (exc.constraint == 'users_email_key') {
+        throw new Error('the email is already used');
+      } else if (exc.constraint == 'users_username_key') {
+        throw new Error('the username is already used');
+      } else {
+        throw new Error('db error');
+      }
     }
   }
 

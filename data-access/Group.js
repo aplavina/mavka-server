@@ -24,7 +24,7 @@ class Group {
       const updateWallQuery = `UPDATE walls
                                SET wall_group_id = ${group_id} WHERE wall_id = ${wall_id}`;
       const updateWallRes = await client.query(updateWallQuery);
-      this.joinGroup(owner_id, group_id);
+      this.joinGroup(owner_id, group_id, true);
       await client.query('COMMIT');
       res = createGroupRes.rows[0];
     } catch (exc) {
@@ -36,8 +36,10 @@ class Group {
     return res;
   }
 
-  async joinGroup(user_id, group_id) {
-    const query = `INSERT INTO group_memberships(user_id, group_id) VALUES (${user_id}, ${group_id})`;
+  async joinGroup(user_id, group_id, is_moderator) {
+    const query = is_moderator
+      ? `INSERT INTO group_memberships(user_id, group_id, role) VALUES (${user_id}, ${group_id}, \`moderator\`)`
+      : `INSERT INTO group_memberships(user_id, group_id) VALUES (${user_id}, ${group_id})`;
     const queryRes = await pool.query(query);
     return queryRes;
   }

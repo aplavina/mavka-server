@@ -4,6 +4,7 @@ const userRouter = require('./routers/UserRouter.js');
 const authRouter = require('./routers/AuthRouter.js');
 const chatRouter = require('./routers/ChatRouter.js');
 const groupRouter = require('./routers/GroupRouter.js');
+const postRouter = require('./routers/PostRouter.js');
 const dotenv = require('dotenv');
 const AuthHelper = require('./helpers/AuthHelper.js');
 
@@ -51,6 +52,7 @@ app.use('/mavka-api', userRouter);
 app.use('/mavka-api', authRouter);
 app.use('/mavka-api', chatRouter);
 app.use('/mavka-api', groupRouter);
+app.use('/mavka-api', postRouter);
 
 server.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
