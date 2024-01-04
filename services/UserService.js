@@ -14,10 +14,10 @@ class UserService {
       readUserRes = await User.readUser(username);
     } catch (exc) {
       console.log(exc);
-      throw new Error('server error');
+      throw new Error('Server error');
     }
     if (readUserRes.rows.length == 0) {
-      throw new Error(`user with username ${username} does not exist`);
+      throw new Error(`User with username ${username} does not exist`);
     } else {
       return {
         username: readUserRes.rows[0].username,
@@ -41,14 +41,14 @@ class UserService {
         newData.new_avatar
       );
       if (queryRes.rowCount == 0) {
-        throw new Error(`user does not exist`);
+        throw new Error(`User does not exist`);
       }
     } catch (exc) {
-      if (exc.constraint == 'users_email_key') {
-        throw new Error('this email is already used');
+      if (exc.constraint == 'Users_email_key') {
+        throw new Error('This email is already used');
       } else {
         console.log(exc);
-        throw new Error('server error');
+        throw new Error('Server error');
       }
     }
   }
@@ -62,7 +62,7 @@ class UserService {
     } catch (exc) {
       if (exc.message != 'User not found') {
         console.log(exc);
-        throw new Error('server error');
+        throw new Error('Server error');
       } else {
         throw exc;
       }

@@ -10,10 +10,10 @@ class UserController {
       return res.status(200).json(serviceRes);
     } catch (exc) {
       console.log(exc);
-      if (exc.message == 'server error') {
-        return res.status(500).json({ message: 'server error' });
+      if (exc.message == 'Server error') {
+        return res.status(500).json({ message: 'Server error' });
       } else {
-        return res.status(400).json({ message: exc.message });
+        return res.status(404).json({ message: exc.message });
       }
     }
   }
@@ -26,8 +26,8 @@ class UserController {
       return res.status(200).json(serviceRes);
     } catch (exc) {
       console.log(exc);
-      if (exc.message == 'server error') {
-        return res.status(500).json({ message: 'server error' });
+      if (exc.message == 'Server error') {
+        return res.status(500).json({ message: 'Server error' });
       } else {
         return res.status(400).json({ message: exc.message });
       }
@@ -53,14 +53,14 @@ class UserController {
 
     try {
       await UserService.updateUser(newData);
-      res.status(200).json({ message: 'user updated successfully' });
+      res.status(200).json({ message: 'User updated successfully' });
     } catch (exc) {
-      if (exc.message.startsWith('user does not exist')) {
+      if (exc.message.startsWith('User does not exist')) {
         return res.status(400).json({
-          message: `user with username ${req.params.username} does not exist`,
+          message: `User with username ${req.params.username} does not exist`,
         });
-      } else if (exc.message == 'server error') {
-        return res.status(500).json({ message: 'server error' });
+      } else if (exc.message == 'Server error') {
+        return res.status(500).json({ message: 'Server error' });
       } else {
         return res.status(409).json({ message: exc.message });
       }
