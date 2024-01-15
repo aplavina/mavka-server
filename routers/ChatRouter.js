@@ -7,13 +7,13 @@ const chatController = require('./../controllers/ChatController.js');
 const chatRouter = new Router();
 
 chatRouter.get(
-  '/chat/:room_id',
+  '/:room_id',
   [authMiddleware, checkMembershipMiddleware],
   chatController.getRoomMessages
 );
 
 chatRouter.post(
-  '/chat/:room_id',
+  '/:room_id',
   [authMiddleware, checkMembershipMiddleware],
   chatController.addMessage
 );

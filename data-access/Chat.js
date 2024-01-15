@@ -63,11 +63,12 @@ class Chat {
     return await pool.query(query);
   }
 
-  async getChatMessagesByUsers(room_id) {
+  async getChatMessagesByUsers(room_id, offset, limit) {
     const query = `SELECT username, first_name, last_name, message_text, avatar_url, created_time
                    FROM messages
                    JOIN users USING(user_id)
-                   WHERE messages.user_id IS NOT NULL AND room_id = ${room_id}`;
+                   WHERE messages.user_id IS NOT NULL AND room_id = ${room_id}
+                   OFFSET ${offset} LIMIT ${limit}`;
     const queryRes = await pool.query(query);
     return queryRes;
   }

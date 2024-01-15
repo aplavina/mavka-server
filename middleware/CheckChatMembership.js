@@ -10,7 +10,7 @@ module.exports = async function (req, res, next) {
       console.log('not member');
       return res
         .status(403)
-        .json({ message: 'Access denied. Not room member.' });
+        .json({ message: 'Access denied. Not a room member.' });
     } else {
       next();
     }

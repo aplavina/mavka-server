@@ -1,16 +1,24 @@
 const Chat = require('./../data-access/Chat');
 const User = require('./../data-access/User');
+const ChatService = require('./../services/ChatService');
 
 const { validationResult } = require('express-validator');
 
 class ChatController {
   async getRoomMessages(req, res) {
     const room_id = req.params.room_id;
+    const { page, pageSize } = req.query;
     try {
-      const query_res = await Chat.getChatMessagesByUsers(room_id);
-      res.status(200).json(query_res.rows);
+      let queryRes;
+      if (page == undefined || pageSize == undefined) {
+        queryRes = await ChatService.getRoomMessages(room_id);
+      } else {
+        queryRes = await ChatService.getRoomMessages(room_id, page, pageSize);
+      }
+      return res.status(200).json(queryRes);
     } catch (exc) {
-      res.status(500).json(exc);
+      console.log(exc.message);
+      res.status(500).json({ message: 'Server error' });
     }
   }
 

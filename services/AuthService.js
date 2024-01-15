@@ -23,9 +23,9 @@ class AuthService {
       );
     } catch (exc) {
       if (exc.constraint == 'users_email_key') {
-        throw new Error('the email is already used');
+        throw new Error('The email is already used');
       } else if (exc.constraint == 'users_username_key') {
-        throw new Error('the username is already used');
+        throw new Error('The username is already used');
       } else {
         throw new Error('db error');
       }

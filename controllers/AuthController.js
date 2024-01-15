@@ -20,14 +20,12 @@ class AuthController {
       res.status(200).json({ message: 'User registered' });
     } catch (exc) {
       if (exc.message == 'db error') {
-        res.status(500).json({
+        return res.status(500).json({
           message: 'Server error',
         });
+      } else {
+        return res.status(409).json({ message: exc.message });
       }
-      res.status(400).json({
-        message: 'Registration error',
-        errors: [exc.message],
-      });
     }
   }
 
@@ -44,7 +42,7 @@ class AuthController {
         pass: req.body.pass,
       };
       const token = await AuthService.login(user);
-      return res.json({ token });
+      return res.status(200).json({ token });
     } catch (exc) {
       if (exc.message == 'db error') {
         return res.status(500).json({

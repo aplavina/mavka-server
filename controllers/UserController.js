@@ -9,12 +9,11 @@ class UserController {
       const serviceRes = await UserService.getUser(req.params.username);
       return res.status(200).json(serviceRes);
     } catch (exc) {
-      console.log(exc);
-      if (exc.message == 'Server error') {
-        return res.status(500).json({ message: 'Server error' });
-      } else {
+      if (exc.message.startsWith('User with username')) {
         return res.status(404).json({ message: exc.message });
       }
+      console.log(exc);
+      return res.status(500).json({ message: 'Server error' });
     }
   }
 
@@ -26,11 +25,7 @@ class UserController {
       return res.status(200).json(serviceRes);
     } catch (exc) {
       console.log(exc);
-      if (exc.message == 'Server error') {
-        return res.status(500).json({ message: 'Server error' });
-      } else {
-        return res.status(400).json({ message: exc.message });
-      }
+      return res.status(500).json({ message: 'Server error' });
     }
   }
 
@@ -55,11 +50,7 @@ class UserController {
       await UserService.updateUser(newData);
       res.status(200).json({ message: 'User updated successfully' });
     } catch (exc) {
-      if (exc.message.startsWith('User does not exist')) {
-        return res.status(400).json({
-          message: `User with username ${req.params.username} does not exist`,
-        });
-      } else if (exc.message == 'Server error') {
+      if (exc.message == 'Server error') {
         return res.status(500).json({ message: 'Server error' });
       } else {
         return res.status(409).json({ message: exc.message });
@@ -73,12 +64,7 @@ class UserController {
       await UserService.deleteUser(username);
       res.status(200).json({ message: 'User deleted' });
     } catch (exc) {
-      if (exc.message == 'User not foudn') {
-        res.status(400).json({ message: 'User not found' });
-        return;
-      } else {
-        res.status(500).json({ message: exc.message });
-      }
+      res.status(500).json({ message: 'Server error' });
     }
   }
 }

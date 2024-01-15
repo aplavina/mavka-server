@@ -40,12 +40,9 @@ class UserService {
         newData.new_last_name,
         newData.new_avatar
       );
-      if (queryRes.rowCount == 0) {
-        throw new Error(`User does not exist`);
-      }
     } catch (exc) {
-      if (exc.constraint == 'Users_email_key') {
-        throw new Error('This email is already used');
+      if (exc.constraint == 'users_email_key') {
+        throw new Error('The email is already used');
       } else {
         console.log(exc);
         throw new Error('Server error');

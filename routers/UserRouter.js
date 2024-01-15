@@ -34,13 +34,4 @@ userRouter.delete(
   UserController.deleteuser
 );
 
-/* 
-  NEED OTHER METHODS:
-  getFriends
-  getGroupMembers
-  getChatMembers
-  getGroupModerators
-  getChatModerators
-*/
-
 module.exports = userRouter;

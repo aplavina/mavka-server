@@ -5,6 +5,6 @@ const authMiddleware = require('./../middleware/AuthMiddleware.js');
 
 const postRouter = new Router();
 
-postRouter.post('/wall-posts', [authMiddleware], PostController.addPost);
+postRouter.post('/wall-post', [authMiddleware], PostController.addPost);
 
 module.exports = postRouter;
