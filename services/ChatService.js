@@ -11,6 +11,23 @@ class ChatService {
     );
     return query_res.rows;
   }
+  async addMessage(room_id, user_id, message_text) {
+    const query_res = await Chat.addMessageByUser(
+      user_id,
+      message_text,
+      room_id
+    );
+    return query_res.rows[0];
+  }
+
+  async addNewRoom(user_id, room_name) {
+    const queryRes = await Chat.createRoom(user_id, room_name);
+    return queryRes.rows[0];
+  }
+
+  async addPersonal(user_id, another_user, text) {
+    return await Chat.addPersonalMsg(user_id, another_user, text);
+  }
 }
 
 module.exports = new ChatService();

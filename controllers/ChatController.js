@@ -7,12 +7,20 @@ const { validationResult } = require('express-validator');
 class ChatController {
   async getRoomMessages(req, res) {
     const room_id = req.params.room_id;
-    const { page, pageSize } = req.query;
+    const page = parseInt(req.query.page, 10);
+    const pageSize = parseInt(req.query.pageSize, 10);
+
     try {
       let queryRes;
-      if (page == undefined || pageSize == undefined) {
+      if (isNaN(page) || isNaN(pageSize)) {
         queryRes = await ChatService.getRoomMessages(room_id);
       } else {
+        if (page <= 0 || pageSize <= 0) {
+          return res.status(400).json({
+            message:
+              'Invalid page or pageSize values. They should be greater than 0.',
+          });
+        }
         queryRes = await ChatService.getRoomMessages(room_id, page, pageSize);
       }
       return res.status(200).json(queryRes);
@@ -27,19 +35,20 @@ class ChatController {
     const user_id = req.user_id;
     const message_text = req.body.message_text;
     try {
-      const query_res = await Chat.addMessageByUser(
+      const { message_id, created_time } = await ChatService.addMessage(
+        room_id,
         user_id,
-        message_text,
-        room_id
+        message_text
       );
       const user = await User.readUserById(user_id);
       const message = {
+        message_id,
         username: user.rows[0].username,
         avatar_url: user.rows[0].avatar_url,
         first_name: user.rows[0].first_name,
         last_name: user.rows[0].last_name,
         text: message_text,
-        created_time: query_res.rows[0].created_time,
+        created_time,
       };
       req.io.to(`chat room ${room_id}`).emit('new message', message);
       res.status(200).json({ message: 'Success' });
@@ -59,8 +68,8 @@ class ChatController {
 
     const room_name = req.body.room_name;
     try {
-      const queryRes = await Chat.createRoom(req.user_id, room_name);
-      return res.status(200).json(queryRes.rows[0]);
+      const queryRes = await ChatService.addNewRoom(req.user_id, room_name);
+      return res.status(200).json(queryRes);
     } catch (exc) {
       console.log(exc);
       res.status(500).json(exc);
@@ -79,8 +88,12 @@ class ChatController {
     const another_user = req.params.username;
     const text = req.body.text;
     try {
-      const mesgRes = await Chat.addPersonalMsg(user_id, another_user, text);
-      res.status(200).json({ message: 'success' });
+      const mesgRes = await ChatService.addPersonal(
+        user_id,
+        another_user,
+        text
+      );
+      res.status(200).json({ message: 'Success' });
       req.io
         .to(`personal ${mesgRes.another_user_id}`)
         .emit('new personal message', mesgRes.msg_text);

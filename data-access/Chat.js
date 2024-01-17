@@ -59,7 +59,7 @@ class Chat {
 
   async addMessageByUser(user_id, message_text, room_id) {
     const query = `INSERT INTO messages(user_id, message_text, room_id)
-                   VALUES(${user_id}, \'${message_text}\', ${room_id}) RETURNING created_time`;
+                   VALUES(${user_id}, \'${message_text}\', ${room_id}) RETURNING message_id, created_time`;
     return await pool.query(query);
   }
 

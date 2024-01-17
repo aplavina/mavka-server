@@ -7,7 +7,6 @@ module.exports = async function (req, res, next) {
       req.params.room_id
     );
     if (!isMember) {
-      console.log('not member');
       return res
         .status(403)
         .json({ message: 'Access denied. Not a room member.' });

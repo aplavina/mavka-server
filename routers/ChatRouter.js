@@ -7,13 +7,13 @@ const chatController = require('./../controllers/ChatController.js');
 const chatRouter = new Router();
 
 chatRouter.get(
-  '/:room_id',
+  '/message/:room_id',
   [authMiddleware, checkMembershipMiddleware],
   chatController.getRoomMessages
 );
 
 chatRouter.post(
-  '/:room_id',
+  '/message/:room_id',
   [authMiddleware, checkMembershipMiddleware],
   chatController.addMessage
 );
@@ -25,7 +25,7 @@ chatRouter.post(
 );
 
 chatRouter.post(
-  '/pmsg/:username',
+  '/personal-message/:username',
   [check('text', 'Mesage text can not be empty').notEmpty(), authMiddleware],
   chatController.addPersonal
 );
