@@ -4,8 +4,8 @@ const { validationResult } = require('express-validator');
 class GroupController {
   async getAll(req, res) {
     try {
-      const queryRes = await Group.getAll().rows;
-      res.status(200).json(queryRes);
+      const queryRes = await Group.getAll();
+      res.status(200).json(queryRes.rows);
     } catch (exc) {
       console.log(exc);
       res.status(500).json(exc);
@@ -15,6 +15,7 @@ class GroupController {
   async addGroup(req, res) {
     try {
       const queryRes = await Group.addGroup(req.body.group_name, req.user_id);
+      delete queryRes.owner_id;
       res.status(200).json(queryRes);
     } catch (exc) {
       console.log(exc);

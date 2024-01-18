@@ -38,7 +38,7 @@ class Group {
 
   async joinGroup(user_id, group_id, is_moderator) {
     const query = is_moderator
-      ? `INSERT INTO group_memberships(user_id, group_id, role) VALUES (${user_id}, ${group_id}, \`moderator\`)`
+      ? `INSERT INTO group_memberships(user_id, group_id, role) VALUES (${user_id}, ${group_id}, 'moderator')`
       : `INSERT INTO group_memberships(user_id, group_id) VALUES (${user_id}, ${group_id})`;
     const queryRes = await pool.query(query);
     return queryRes;

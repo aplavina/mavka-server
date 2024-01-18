@@ -9,7 +9,7 @@ class PostController {
   async addPost(req, res) {
     try {
       if (req.body.username == null && req.body.group_id) {
-        return res.status(400).json({ message: 'need user_id or group_id' });
+        return res.status(400).json({ message: 'Need username or group_id' });
       }
       const readUserRes = await User.readUser(req.body.username);
       const user_id =
@@ -21,7 +21,7 @@ class PostController {
           req.body.wall_id
         )
       ) {
-        return res.status(400).json({ message: 'permission denied' });
+        return res.status(400).json({ message: 'Permission denied' });
       } else {
         await Post.addPost(
           req.body.wall_id,
@@ -30,7 +30,7 @@ class PostController {
           req.body.post_text,
           req.body.reposted_post_id
         );
-        return res.status(200).json({ message: 'success' });
+        return res.status(200).json({ message: 'Success' });
       }
     } catch (exc) {
       console.log(exc);

@@ -51,8 +51,8 @@ io.on('connection', (socket) => {
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
-app.use('/mavka-api', groupRouter);
-app.use('/mavka-api', postRouter);
+app.use('/groups', groupRouter);
+app.use('/posts', postRouter);
 
 server.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);

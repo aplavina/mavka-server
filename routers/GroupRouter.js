@@ -5,10 +5,10 @@ const authMiddleware = require('../middleware/AuthMiddleware.js');
 
 const groupRouter = new Router();
 
-groupRouter.get('/groups', [authMiddleware], GroupController.getAll);
+groupRouter.get('', [authMiddleware], GroupController.getAll);
 
 groupRouter.post(
-  '/groups',
+  '',
   [
     check('group_name', 'Group name can not be empty').notEmpty(),
     authMiddleware,
@@ -16,10 +16,6 @@ groupRouter.post(
   GroupController.addGroup
 );
 
-groupRouter.post(
-  '/groups/:group_id',
-  [authMiddleware],
-  GroupController.joinGroup
-);
+groupRouter.post('/:group_id', [authMiddleware], GroupController.joinGroup);
 
 module.exports = groupRouter;
