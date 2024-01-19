@@ -445,11 +445,36 @@
         "description": "This method returns public information about a user",
         "operationId": "editUser",
         "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "pass": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  }
+                },
+                "required": ["email", "pass", "first_name", "last_name"]
+              }
+            }
+          }
+        },
         "parameters": [
           {
             "name": "username",
             "in": "path",
-            "description": "Username of the user to retrieve information",
+            "description": "Username of the user for updating",
             "required": true,
             "schema": {
               "type": "string"
