@@ -1,15 +1,13 @@
 const pool = require('./Pool.js');
 
 class Post {
-  async readPostsFromWall(wall_id, pageNumber, pageSize) {
-    const offset = (pageNumber - 1) * pageSize;
-    const limit = pageSize;
-
+  async getWallPosts(wall_id, offset, limit) {
     const query =
-      'SELECT post_id, username, first_name, last_name, group_id, group_name, post_text, reposted_post_id ' +
-      'FROM posts WHERE wall_id = $1 ' +
+      'SELECT post_id, username, avatar_url, posts.wall_id, post_text, created_at' +
+      ' FROM posts JOIN ' +
+      'users USING(user_id) WHERE posts.wall_id = $1 ' +
+      'ORDER BY created_at DESC ' +
       'OFFSET $2 LIMIT $3';
-
     const queryRes = await pool.query(query, [wall_id, offset, limit]);
     return queryRes;
   }

@@ -37,6 +37,27 @@ class PostController {
       return res.status(500).json(exc);
     }
   }
+
+  async getWallPosts(req, res) {
+    const wall_id = req.params.wall_id;
+    let page = parseInt(req.query.page, 10);
+    let pageSize = parseInt(req.query.pageSize, 10);
+
+    let offset;
+
+    try {
+      if (isNaN(page) || isNaN(pageSize)) {
+        page = 1;
+        pageSize = 10;
+      }
+      offset = (page - 1) * pageSize;
+      const queryRes = await Post.getWallPosts(wall_id, offset, pageSize);
+      return res.status(200).json(queryRes.rows);
+    } catch (exc) {
+      console.log(exc);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
 }
 
 module.exports = new PostController();
