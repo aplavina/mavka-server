@@ -23,6 +23,17 @@ class WallController {
       res.status(500).json({ message: 'Server error' });
     }
   }
+
+  async getWallThemes(req, res) {
+    try {
+      res
+        .status(200)
+        .json({ themes: ['GAMES', 'SPORT', 'FOOD', 'MUSIC', 'SCIENCE'] });
+    } catch (exc) {
+      console.log(exc.message);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
 }
 
 module.exports = new WallController();

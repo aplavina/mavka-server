@@ -11,4 +11,6 @@ wallRouter.put(
   WallController.searchGroupWalls
 );
 
+wallRouter.get('/wall-themes', authMiddleware, WallController.getWallThemes);
+
 module.exports = wallRouter;
