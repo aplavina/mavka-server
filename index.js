@@ -11,7 +11,6 @@ const AuthHelper = require('./helpers/AuthHelper.js');
 
 dotenv.config();
 
-/* global process */
 const PORT = process.env.PORT || 5000;
 
 const app = express();

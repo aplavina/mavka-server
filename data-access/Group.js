@@ -1,4 +1,3 @@
-const pgp = require('pg-promise')();
 const pool = require('./Pool.js');
 
 class Group {
@@ -35,10 +34,7 @@ class Group {
       const updateWallQuery =
         'UPDATE walls ' + 'SET wall_group_id = $1 WHERE wall_id = $2';
 
-      const updateWallRes = await client.query(updateWallQuery, [
-        group_id,
-        wall_id,
-      ]);
+      await client.query(updateWallQuery, [group_id, wall_id]);
       await this.joinGroup(owner_id, group_id, true, client);
 
       await client.query('COMMIT');

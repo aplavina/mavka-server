@@ -1,4 +1,3 @@
-const pgp = require('pg-promise')();
 const pool = require('./Pool.js');
 const User = require('./User.js');
 

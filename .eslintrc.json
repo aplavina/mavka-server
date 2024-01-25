@@ -7,7 +7,7 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
-  "plugins": ["node", "express"],
+  "plugins": ["node"],
   "rules": {
     "node/no-unsupported-features/es-syntax": [
       "error",

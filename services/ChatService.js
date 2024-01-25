@@ -1,5 +1,4 @@
 const Chat = require('./../data-access/Chat');
-const User = require('./../data-access/User');
 
 class ChatService {
   async getRoomMessages(roomId, page = 1, pageSize = 10) {

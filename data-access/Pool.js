@@ -2,7 +2,7 @@ const pg = require('pg');
 
 const { Pool } = pg;
 
-let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 
 const pool = new Pool({
   user: PGUSER,

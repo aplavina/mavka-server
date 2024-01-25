@@ -45,10 +45,7 @@ class User {
         UPDATE walls
         SET wall_user_id = $1
         WHERE wall_id = $2`;
-      const updateWallRes = await client.query(updateWallQuery, [
-        user_id,
-        wall_id,
-      ]);
+      await client.query(updateWallQuery, [user_id, wall_id]);
       await client.query('COMMIT');
       res = createUserRes;
     } catch (exc) {

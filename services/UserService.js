@@ -1,5 +1,4 @@
 const User = require('./../data-access/User');
-const bcrypt = require('bcryptjs');
 
 class UserService {
   async getUser(username) {
@@ -32,7 +31,7 @@ class UserService {
 
   async updateUser(newData) {
     try {
-      const queryRes = await User.updateUser(
+      await User.updateUser(
         newData.username,
         newData.new_email,
         newData.new_pass,

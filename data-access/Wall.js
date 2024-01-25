@@ -49,13 +49,13 @@ class Wall {
     return queryRes.rows;
   }
 
-  async isUserMemberOrFriend(user_id, wall_id) {
-    // Implement logic to check if user is a member or friend
-    // ...
+  // async isUserMemberOrFriend(user_id, wall_id) {
+  //   // Implement logic to check if user is a member or friend
+  //   // ...
 
-    // For now, let's return true for the sake of example
-    return true;
-  }
+  //   // For now, let's return true for the sake of example
+  //   return true;
+  // }
 }
 
 module.exports = new Wall();

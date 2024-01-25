@@ -1,4 +1,3 @@
-const User = require('./../data-access/User.js');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const UserService = require('./../services/UserService.js');
