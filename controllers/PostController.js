@@ -58,6 +58,21 @@ class PostController {
       res.status(500).json({ message: 'Server error' });
     }
   }
+
+  async getPostById(req, res) {
+    try {
+      const postId = req.params.post_id;
+      const queryRes = await Post.getPostById(postId);
+      if (queryRes.length != 1) {
+        return res.status(404).json({ message: 'Post not found' });
+      } else {
+        return res.status(200).json(queryRes[0]);
+      }
+    } catch (exc) {
+      console.log(exc);
+      return res.status(500).json({ message: 'Server error' });
+    }
+  }
 }
 
 module.exports = new PostController();

@@ -12,4 +12,10 @@ postRouter.get(
   PostController.getWallPosts
 );
 
+postRouter.get(
+  '/single-post/:post_id',
+  [authMiddleware],
+  PostController.getPostById
+);
+
 module.exports = postRouter;

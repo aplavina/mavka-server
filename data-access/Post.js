@@ -51,6 +51,12 @@ class Post {
       client.release();
     }
   }
+
+  async getPostById(postId) {
+    const query = 'SELECT * FROM posts WHERE post_id = $1';
+    const res = await pool.query(query, [postId]);
+    return res.rows;
+  }
 }
 
 module.exports = new Post();
