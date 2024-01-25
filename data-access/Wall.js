@@ -29,6 +29,26 @@ class Wall {
     return false;
   }
 
+  async getGroupWalls() {
+    const query =
+      'SELECT wall_id, wall_group_id, wall_img, wall_title, wall_theme FROM walls WHERE wall_group_id IS NOT NULL';
+    const queryRes = await pool.query(query);
+    return queryRes.rows;
+  }
+
+  async searchGroupWalls(title, theme) {
+    const query =
+      'SELECT wall_id, wall_group_id, wall_img, wall_title, wall_theme FROM walls WHERE wall_group_id IS NOT NULL' +
+      ' AND wall_title ILIKE $1 AND wall_theme = $2';
+
+    console.log(query);
+
+    const queryParams = [title + '%', theme];
+    console.log(queryParams);
+    const queryRes = await pool.query(query, queryParams);
+    return queryRes.rows;
+  }
+
   async isUserMemberOrFriend(user_id, wall_id) {
     // Implement logic to check if user is a member or friend
     // ...
