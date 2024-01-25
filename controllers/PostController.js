@@ -1,7 +1,6 @@
 const Post = require('./../data-access/Post.js');
 const Wall = require('./../data-access/Wall.js');
 const User = require('./../data-access/User.js');
-const { validationResult } = require('express-validator');
 
 class PostController {
   // need to check if a user has permission to add post as group!
