@@ -26,22 +26,20 @@ class WallController {
 
   async getWallThemes(req, res) {
     try {
-      res
-        .status(200)
-        .json({
-          themes: [
-            'Юмор',
-            'Спорт',
-            'Игры',
-            'Еда',
-            'Музыка',
-            'Фотография',
-            'Финансы',
-            'Информационные технологии',
-            'Кино',
-            'Наука',
-          ],
-        });
+      res.status(200).json({
+        themes: [
+          'Юмор',
+          'Спорт',
+          'Игры',
+          'Еда',
+          'Музыка',
+          'Фотография',
+          'Финансы',
+          'Информационные технологии',
+          'Кино',
+          'Наука',
+        ],
+      });
     } catch (exc) {
       console.log(exc.message);
       res.status(500).json({ message: 'Server error' });

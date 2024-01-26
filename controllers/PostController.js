@@ -37,6 +37,17 @@ class PostController {
     }
   }
 
+  async getNews(req, res) {
+    try {
+      const user_id = req.user_id;
+      const queryRes = await Post.getNews(user_id);
+      res.status(200).json(queryRes);
+    } catch (exc) {
+      console.log(exc);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
+
   async getWallPosts(req, res) {
     const wall_id = req.params.wall_id;
     let page = parseInt(req.query.page, 10);

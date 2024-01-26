@@ -17,4 +17,6 @@ postRouter.get(
   PostController.getPostById
 );
 
+postRouter.get('/news', [authMiddleware], PostController.getNews);
+
 module.exports = postRouter;

@@ -1,6 +1,5 @@
 import assert from 'assert';
 import axios from 'axios';
-import { default as app } from '../index.js';
 
 const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA2MjkyNTg5LCJleHAiOjE3MDY4OTczODl9.Icqq7H6GWyf99rbmdAueqV8lsOf6VNVACU5qd2ZNktE';
@@ -80,6 +79,4 @@ describe('User management test', () => {
       }
     });
   });
-
-  // Other test cases...
 });

@@ -12,6 +12,15 @@ class Post {
     return queryRes;
   }
 
+  async getNews(user_id) {
+    const query =
+      'SELECT post_id, username, avatar_url, posts.wall_id, post_text, created_at' +
+      ' FROM posts JOIN ' +
+      'users USING(user_id)';
+    const queryRes = await pool.query(query);
+    return queryRes.rows;
+  }
+
   async addPost(wall_id, user_id, group_id, post_text, reposted_post_id) {
     if (group_id == null && user_id == null) {
       throw new Error('Need user_id or group_id');
